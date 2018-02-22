@@ -1,0 +1,54 @@
+
+<table id="example23" class="display nowrap table table-hover  table-bordered"
+       cellspacing="0" width="100%"
+       datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+  <thead class="bg-info text-white">
+  <tr>
+    <th>ID</th>
+    <th>Descripcion</th>
+    <th>Fecha</th>
+    <th>C.Costo</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of data"
+      style="font-size: 12px;">
+    <td>{{data.numSac}}
+      <!-- | paginate:{ id: 'foo', itemsPerPage: 10, currentPage: e }-->
+      <!--<a class="btn btn-primary btn-xs"
+         data-toggle="collapse"
+         [attr.href]="'#'+ data.idcabeSac"
+         role="button"
+         aria-expanded="false"
+         aria-controls="collapseExample">{{data.numSac}}
+      </a>
+      <div class="collapse" aria-expanded="false" [id]="data.idcabeSac" style="width: 20px">
+        <div class="card-body">
+          <h4 class="card-title text-info">{{data.idcabeSac}}</h4>
+          <p class="card-title text-dark">{{data.descripcion | slice:0:80}}...</p>
+        </div>
+      </div>-->
+    </td>
+    <td class="text-dark">{{data.descripcion | slice:0:80}}
+      <br> {{data.descripcion | slice:80:data.descripcion.length}}
+    </td>
+    <td>{{data.fechaSac}}</td>
+    <td>{{data.codCcosto}}</td>
+    <td class="text-nowrap">
+      <div class="btn-group dropright ">
+        <button type="button"  class="btn btn-secondary btn-xs"><!---data-toggle="modal" data-target="#exampleModal"-->
+          <span><i class="fas fa-edit"></i> <strong>Editar</strong></span>
+        </button>
+        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropright</span>
+        </button>
+        <div class="dropdown-menu">
+          <button type="button"  class="dropdown-item"> <span><i class="fa fa-times"></i> Eliminar</span></button>
+          <button type="button"  class="dropdown-item"> <span><i class="fa fa-file"></i> Adicionar</span></button>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -5,8 +5,7 @@ Email: niravjoshi87@gmail.com
 File: js
 */
 
-function init_plugins() {
-
+function init() {
   $(function () {
     "use strict";
     $(function () {
@@ -155,6 +154,5 @@ function init_plugins() {
     $('a[data-action="close"]').on('click', function () {
       $(this).closest('.card').removeClass().slideUp('fast');
     });
-
   });
 }
