@@ -28,9 +28,9 @@
         "../node_modules/datatables.net-buttons/js/dataTables.buttons.js",
         "../node_modules/datatables.net-buttons/js/buttons.colVis.js",
         "../node_modules/datatables.net-buttons/js/buttons.flash.js",
-        "assets/plugins/datatables/js/jszip.min.js",
-        "assets/plugins/datatables/js/pdfmake.min.js",
-        "assets/plugins/datatables/js/vfs_fonts.js",
+        "assets/plugins/data-tables/js/jszip.min.js",
+        "assets/plugins/data-tables/js/pdfmake.min.js",
+        "assets/plugins/data-tables/js/vfs_fonts.js",
         "../node_modules/datatables.net-buttons/js/buttons.html5.js",
         "../node_modules/datatables.net-buttons/js/buttons.print.js"
       ],

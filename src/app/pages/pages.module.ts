@@ -8,17 +8,21 @@ import {CommonModule} from "@angular/common";
 import {NgxPaginationModule} from "ngx-pagination";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import {MomentModule} from "angular2-moment";
+import {PipeCuadroNecesidadesPipe} from "../pipes/pipe-cuadro-necesidades.pipe";
 
 @NgModule({
   declarations: [
     PagesComponent,
     DashboardComponent,
-    RequerimientosComponent
+    RequerimientosComponent,
+    PipeCuadroNecesidadesPipe
   ],
   exports: [
     PagesComponent,
     DashboardComponent,
-    RequerimientosComponent
+    RequerimientosComponent,
+    PipeCuadroNecesidadesPipe
   ],
   imports: [
     SharedModule,
@@ -27,7 +31,8 @@ import {FormsModule} from "@angular/forms";
     //HttpModule,
     HttpClientModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    MomentModule
 
   ]
 })

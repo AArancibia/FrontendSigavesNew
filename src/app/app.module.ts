@@ -6,12 +6,14 @@ import { LoginComponent } from './login/login.component';
 import {APP_ROUTES} from "./app.routes";
 import {PagesModule} from "./pages/pages.module";
 import {ServiceModule} from "./services/service.module";
+import { PipeCuadroNecesidadesPipe } from './pipes/pipe-cuadro-necesidades.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent
+
   ],
   imports: [
     BrowserModule,

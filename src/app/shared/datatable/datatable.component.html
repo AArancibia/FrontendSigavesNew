@@ -14,41 +14,50 @@
   <tbody>
   <tr *ngFor="let data of data"
       style="font-size: 12px;">
-    <td>{{data.numSac}}
-      <!-- | paginate:{ id: 'foo', itemsPerPage: 10, currentPage: e }-->
-      <!--<a class="btn btn-primary btn-xs"
-         data-toggle="collapse"
-         [attr.href]="'#'+ data.idcabeSac"
-         role="button"
-         aria-expanded="false"
-         aria-controls="collapseExample">{{data.numSac}}
-      </a>
-      <div class="collapse" aria-expanded="false" [id]="data.idcabeSac" style="width: 20px">
-        <div class="card-body">
-          <h4 class="card-title text-info">{{data.idcabeSac}}</h4>
-          <p class="card-title text-dark">{{data.descripcion | slice:0:80}}...</p>
-        </div>
-      </div>-->
+    <td>{{data.idcabeSac.toString() | slice:6:9}}
     </td>
-    <td class="text-dark">{{data.descripcion | slice:0:80}}
-      <br> {{data.descripcion | slice:80:data.descripcion.length}}
+    <td class="text-dark">{{data.descripcion }}
+      <!-- | slice:0:80}}
+      <br> {{data.descripcion | slice:80:data.descripcion.length}} -->
     </td>
     <td>{{data.fechaSac}}</td>
     <td>{{data.codCcosto}}</td>
     <td class="text-nowrap">
       <div class="btn-group dropright ">
-        <button type="button"  class="btn btn-secondary btn-xs"><!---data-toggle="modal" data-target="#exampleModal"-->
+        <button type="button"  class="btn btn-secondary btn-xs" (click)="accion(data)"><!---data-toggle="modal" data-target="#exampleModal"-->
           <span><i class="fas fa-edit"></i> <strong>Editar</strong></span>
         </button>
         <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="sr-only">Toggle Dropright</span>
         </button>
         <div class="dropdown-menu">
-          <button type="button"  class="dropdown-item"> <span><i class="fa fa-times"></i> Eliminar</span></button>
-          <button type="button"  class="dropdown-item"> <span><i class="fa fa-file"></i> Adicionar</span></button>
+          <button type="button" class="dropdown-item" data-toggle="modal" data-target="#exampleModal" (click)="eliminar(data.idcabeSac)"> <span><i class="fa fa-times"></i> Eliminar</span></button>
         </div>
       </div>
     </td>
   </tr>
   </tbody>
 </table>
+<hr>
+
+
+<!-- -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel1">New message</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <h1>¿Estas seguro de eliminar? {{elimina}}</h1>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>

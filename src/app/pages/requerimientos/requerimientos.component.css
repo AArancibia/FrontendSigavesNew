@@ -16,6 +16,13 @@
   z-index: 100;
 }
 
+/* TABLA */
+.span3 {
+  height: 250px !important;
+  overflow: scroll;
+}
+/**/
+
 @media screen and (max-width:480px) {
   .list-group a > .list-group-item {
   width: 90% !important;

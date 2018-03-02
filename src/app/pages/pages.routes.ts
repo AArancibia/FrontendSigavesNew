@@ -14,6 +14,7 @@ const pagesRoutes: Routes = [
         {path: '', redirectTo: 'Operaciones', pathMatch: 'full' },
         {path: 'Operaciones', component: RequerimientosComponent }
       ]},
+      {path: '', redirectTo: 'Requerimiento', pathMatch: 'full'},
       {path: '**', component: NopagefoundComponent}
     ]
   },
