@@ -56,15 +56,17 @@ export class DatatableComponent implements OnInit, AfterViewInit {
       pagingType: 'full_numbers',
       pageLength: 5,
       // Declare the use of the extension in the dom parameter
-      dom: 'Bfrtip',
+      dom: 'Bfrtip',/*
+      "columnDefs": [ {
+        "targets": -1,
+        "data": null,
+        "defaultContent": "<button class='image-admin'><i class='fas fa-edit fa-2x '></i></button><button data-toggle=\"modal\" data-target=\"#exampleModal\" class='image-admin'><i class='fa fa-times fa-2x '></i></button>"
+      } ],*/
       buttons: [
         'pdf',
         'excel',
         'print'
       ],
-      "columnDefs": [ {
-        "targets": -1
-      } ],
       language: this.idioma_español
     };
   }

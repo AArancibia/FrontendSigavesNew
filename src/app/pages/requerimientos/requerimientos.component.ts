@@ -108,7 +108,16 @@ export class RequerimientosComponent implements OnInit {
     $('a#home22.nav-link.active')
       .removeClass('active');
     $('a#profile22.nav-link').addClass('active');
-    this.scroller.to('#cardList');
+    //this.scroller.to('#cardList');
+  }
+
+  cancelarReq() {
+    this.itemNuevoReq = true;
+    $('#home2').toggleClass('active');
+    $('#profile2').toggleClass('active');
+    $('a#profile22.nav-link.active')
+      .removeClass('active');
+    $('a#home22.nav-link').addClass('active');
   }
 
   getCuadroNecesidades() {

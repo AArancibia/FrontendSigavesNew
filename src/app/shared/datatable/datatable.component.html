@@ -4,11 +4,11 @@
        datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
   <thead class="bg-info text-white">
   <tr>
-    <th>ID</th>
+    <th>Codigo</th>
     <th>Descripcion</th>
     <th>Fecha</th>
     <th>C.Costo</th>
-    <th>Actions</th>
+    <th>Acciones</th>
   </tr>
   </thead>
   <tbody>
@@ -16,12 +16,12 @@
       style="font-size: 12px;">
     <td>{{data.idcabeSac.toString() | slice:6:9}}
     </td>
-    <td class="text-dark">{{data.descripcion }}
-      <!-- | slice:0:80}}
-      <br> {{data.descripcion | slice:80:data.descripcion.length}} -->
+    <td class="text-dark">{{data.descripcion | slice:0:69}}
+      <br> {{data.descripcion | slice:69:data.descripcion.length}}
     </td>
     <td>{{data.fechaSac}}</td>
     <td>{{data.codCcosto}}</td>
+    <!--<td></td>-->
     <td class="text-nowrap">
       <div class="btn-group dropright ">
         <button type="button"  class="btn btn-secondary btn-xs" (click)="accion(data)"><!---data-toggle="modal" data-target="#exampleModal"-->
