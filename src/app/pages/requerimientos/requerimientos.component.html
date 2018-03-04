@@ -1,0 +1,422 @@
+
+<div class="card" id="cardList">
+  <div class="card-body p-b-0">
+    <!-- Nav tabs -->
+
+    <div class="clearfix">
+      <span class="float-left">
+        <ul class="nav nav-tabs customtab" role="tablist">
+      <li class="nav-item" (click)="this.itemNuevoReq = true">
+        <a class="nav-link active"  data-toggle="tab" href="#home2" id="home22" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Listado</span></a> </li>
+      <li class="nav-item">
+        <!-- disabled*style="cursor: no-drop !important;"-->
+        <a class="nav-link disabled" data-toggle="tab" href="#profile2" id="profile22" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Mantenimiento</span></a> </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#messages2" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Cotización</span></a> </li>
+      <li class="nav-item ">
+      </li>
+      <!--<li class="nav-item col-md-3 col-lg-6" *ngIf="itemNuevoReq" >
+        <button type="button" class="btn btn-success" (click)="accion('vacio')">
+          <span><i class="fa fa-file"></i> Nuevo Requerimiento</span></button>
+      </li>-->
+    </ul>
+      </span>
+      <span class="float-right" *ngIf="itemNuevoReq">
+      <button type="button" class="btn btn-success" (click)="accion('vacio')">
+    <span><i class="fa fa-file"></i> Nuevo Requerimiento</span></button>
+    </span>
+    </div>
+  </div>
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="home2" role="tabpanel">
+      <div class="p-20">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="col-md-12">
+                <form class="form-material m-t-10">
+                  <div class="form-group">
+                    <label ><strong>Bucar por Centro de Costo: </strong></label>
+                    <input type="text" class="form-control col-md-3 ml-3"
+                           placeholder="Buscar..."
+                           [(ngModel)]="termino"
+                           (keyup)="buscarCentroCosto()"
+                           name="termino" id="in">
+                    <span style="float: right" ><strong><h5 style="margin-top: 5px;">{{centroCostoh3}}</h5></strong></span>
+                    <div id="listCCosto" class="col-md-9" style="margin-left: -5px;">
+                      <div class="row justify-content-center" >
+                        <ul class="list-group col-md-5" *ngIf="termino.length > 0" id="ul">
+                          <a *ngFor="let centroCosto of CentroCosto"
+                             (click)="getCabeceraFromCentro(centroCosto.codCcosto, centroCosto.descripcion)" >
+                            <li class="list-group-item" >
+                              <span><i class="fas fa-search"></i></span>&nbsp;{{centroCosto.descripcion}}
+                            </li></a>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="spinner" *ngIf="loading">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+                </div>
+                <!--[ngClass]="{'btn btn-outline-info': isClassVisible }"-->
+
+                <div *ngIf="!loading">
+
+                  <div class="table-responsive m-t-10" >
+
+                    <app-datatable [data]="data" (seleccion)="accion($event)"></app-datatable>
+
+                  </div>
+                  <!--<div class="col-md-12 text-right mt-2">
+                    <pagination-controls id="foo" class="page-item" (pageChange)="e = $event"></pagination-controls>
+                  </div>-->
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane  p-20" id="profile2" role="tabpanel">
+      <div id="uno" class="row">
+        <div class="col-lg-12 mx-auto">
+          <div class="card">
+            <!--<div class="card-header bg-info">
+              <h4 class="m-b-0 text-white">Formulario de SAC </h4>
+            </div>-->
+            <div class="card-body">
+              <!--                                <h4 class="card-title">Sample Form with the right Icons</h4>
+                                              <h6 class="card-subtitle">made with bootstrap elements</h6>-->
+              <form class="form">
+                <div class="row p-t-3">
+                  <!--/span-->
+                  <div class="row col-md-6">
+                    <div class="col-md-6">
+                      <div class="form-group mt-2">
+
+                        <div class="input-group">
+                          <input type="text" class="form-control form-control-sm" id="mdate"
+                                 [(ngModel)]="CabeceraSac.fechaSac" name="fechaSac" placeholder="Fecha del SAC">
+                          <div class="input-group-addon"><i class="fas fa-calendar-alt"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group mt-2">
+                        <div class="input-group">
+                          <input type="text" class="form-control form-control-sm" disabled [(ngModel)]="CabeceraSac.idcabeSac" name="idcabeSac" placeholder="Codigo del SAC">
+                          <div class="input-group-addon"><i class="far fa-clipboard"></i></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <input type="text" class="form-control form-control-sm" [(ngModel)]="CabeceraSac.coordinador" name="coordinador" placeholder="Coordinadora del Requerimiento">
+                          <div class="input-group-addon"><i class="ti-user"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group mt-2">
+                      <div class="input-group" style="width:105%;">
+                        <textarea type="text" rows="4"  class="form-control form-control-sm" [(ngModel)]="CabeceraSac.descripcion" name="descripcion" placeholder="Motivo del Requerimiento"></textarea>
+                        <div class="input-group-addon"><i style="font-size:30px;" class="ti-pencil-alt2"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12" style="margin-top:-20px;">
+                    <hr>
+                    <div class="table-responsive" >
+                      <table id="example23" class="display nowrap table table-sm table-hover  table-bordered"
+                             cellspacing="0" width="100%">
+                        <thead class="bg-info text-white">
+                        <tr>
+                          <th>ID</th>
+                          <th>Código SNB</th>
+                          <th>Descripcion</th>
+                          <th>Unidad</th>
+                          <th style="width: 35px;">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let data of dataCabDet | paginate: { itemsPerPage: 4, currentPage: p,  id: 'foo' }"
+                            style="font-size: 12px;">
+                          <td>{{data.idcabDetSac}}</td>
+                          <td>{{data.codSnb}}</td>
+                          <td class="text-dark">{{data.descripcion}}</td>
+                          <td>{{data.unidad}}</td>
+                          <td class="text-nowrap" style="width: 35px;">
+                            <div class="btn-group dropright ">
+                              <button type="button" (click)="editDetalleReq(data)"  class="btn btn-secondary btn-xs"><!-- data-toggle="modal" data-target="#exampleModal"-->
+                                <span><i class="fas fa-edit"></i> <strong>Editar</strong></span>
+                              </button>
+                              <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropright</span>
+                              </button>
+                              <div class="dropdown-menu">
+                                <button type="button" (click)="deleteDetalleReq(data.codCcosto)"  class="dropdown-item">
+                                  <span><i class="fa fa-times"></i> Eliminar</span></button>
+                                <button type="button" class="dropdown-item"> <span><i class="fa fa-file"></i> Adicionar</span></button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-12 text-right mt-2">
+                      <pagination-controls id="foo" class="page-item" (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <hr>
+                    <form class="form-horizontal p-t-10 ">
+                      <div class="form-group row ">
+
+                        <div class="col-sm-4">
+                          <div class="input-group">
+                            <div class="input-group-addon bg-info"><i class="ti-user text-white"></i></div>
+                            <input type="text" class="form-control form-control-sm" id="exampleInputuname1"
+                                   placeholder="Detalle">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="input-group">
+                            <div class="input-group-addon bg-info"><i class="ti-user text-white"></i></div>
+                            <input type="text" class="form-control form-control-sm" id="exampleInputuname2"
+                                   placeholder="Unidad Movil">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="input-group">
+                            <div class="input-group-addon bg-info"><i class="ti-user text-white"></i></div>
+                            <input type="text" class="form-control form-control-sm" id="exampleInputuname3"
+                                   placeholder="Personal">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+
+
+                <div class="text-center">
+                  <button type="button" class="btn btn-secondary waves-effect waves-light m-r-10">Imprimir TDR/SAC</button>
+                  <button type="button" class="btn btn-secondary waves-effect waves-light">IMPRIMIR TDR(F1)</button>
+                  <button type="button" class="btn btn-secondary waves-effect waves-light">IMPRIMIR TDR(F1)</button>
+                  <button type="button" class="btn btn-secondary waves-effect waves-light">IMPRIMIR TDR(F1)</button>
+                </div>
+                <hr>
+                <div class="text-right">
+                  <button type="button" class="btn btn-success waves-effect waves-light m-r-10">GUARDAR</button>
+                  <button type="button" class="btn btn-default waves-effect waves-light" (click)="cancelarReq()">CANCELAR</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <!-- Row -->
+      <div id="dos" class="row" >
+        <div class="col-sm-12 col-xs-12 col-md-12" style="margin-top: -2%;">
+          <div class="card">
+            <div class="card-body">
+              <form class="input-form">
+                <h5 style="margin-top: -1%">Mantenimiento</h5>
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="input-group">
+          <span class="input-group-btn">
+            <button class="btn btn-outline-info" type="button" (click)="getCuadroNecesidades()" data-toggle="modal" data-target="#exampleModal2">Buscar!</button>
+                        </span>
+                      <input type="text" class="form-control " placeholder="Busca el articulo...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="input-group">
+                      <div class="input-group-addon " style="background-color: #2185D0;">
+                        <i class="ti-user text-white"></i></div>
+                      <input type="text" class="form-control " placeholder="Partida...">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+
+                      <div class="input-group-addon text-white" style="background-color: #2185D0">
+                        <i class=""></i>RUBRO/TR</div>
+                      <input type="text" class="form-control">
+                      <input type="text" class="form-control">
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="row">
+
+                  <div class="col-lg-6">
+                    <br>
+                    <div class="input-group-addon  text-white" style="background-color: #2185D0">
+                      <i class=""></i>Detalle</div>
+                    <textarea type="text" class="form-control form-control-sm" placeholder="Partida..." rows="2"></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <br>
+
+                    <div class="input-group">
+                      <span class="input-group-addon">$</span>
+                      <input type="text" class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+                      <span class="input-group-addon">.00</span>
+                    </div>
+
+                    <div class="input-group mt-3">
+                      <span class="input-group-addon">$</span>
+                      <input type="text" class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+                      <span class="input-group-addon">.00</span>
+                    </div>
+
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-header " style="background-color: #2185D0" >
+                        <h4 class="m-b-0 text-white">Asignar Unidad Móvil</h4>
+                      </div>
+                      <div class="card-body">
+                        <div class="form-group">
+                          <div class="row ">
+                            <div class="col-md-6">
+                              <div class="input-group ">
+  <span class="input-group-addon">
+  <input type="checkbox" aria-label="Checkbox for following text input" >
+   </span>
+                                <input type="text" class="form-control" disabled aria-label="Text input with checkbox"  placeholder="Asignar Unidad Móvil">
+                                <span class="input-group-btn">
+            <button class="btn btn-outline-info"
+                    type="button" disabled>Buscar!</button>
+                        </span>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="input-group">
+  <span class="input-group-addon">
+  <input type="checkbox" aria-label="Checkbox for following text input" >
+   </span>
+                                <input type="text" class="form-control" disabled aria-label="Text input with checkbox"  placeholder="Asignar Personal">
+                                <span class="input-group-btn">
+            <button class="btn btn-outline-info" type="button" disabled>Buscar!</button>
+                        </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <div class="input-group-addon text-white" style="background-color: #2185D0">
+                        <i class=""></i>Actividad POI</div>
+                      <input type="text" class="form-control" placeholder="Partida...">
+                      <input type="text" class="form-control" placeholder="Partida...">
+                    </div>
+                  </div>
+                  <div class="col-md-7">
+                    <div class="text-right">
+                      <button type="button" class="btn btn-outline-success waves-effect waves-light m-r-10">GUARDAR</button>
+                      <button type="button" (click)="togglecierra()" class="btn btn-outline-danger waves-effect waves-light m-r-10"
+                              >CANCELAR Y REGRESAR</button>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-pane p-20" id="messages2" role="tabpanel">3</div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title " id="exampleModalLabel1">Cuadro de Necesidades por Centro de Costo</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form class="">
+          <div class="form-group">
+            <div class="input-group mb-3 col-sm-6">
+              <input type="text" class="form-control form-control-sm" name="search" [(ngModel)]="search">
+              <!--<div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" >Buscar</button>
+              </div>-->
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="table-responsive" >
+            <table class="table table-sm table-bordered table-hover" >
+              <thead class="table-info">
+              <tr class="font-weight-bold">
+                <td class="text-center"  style="width: 25px;">Acc</td>
+                <td style="width: 80px;">Partida</td>
+                <td>Denominación</td>
+                <td>Cantidad</td>
+                <td class="text-center" style="width: 30px;">Acción</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let cn of cuadroNecesidades | paginate: { itemsPerPage: 6, currentPage: c,  id: 'cn' } | filter: search " >
+                <th scope="row" class="text-center">{{cn.actividadOperativaId}}</th>
+                <td>{{cn.clasificadorPre}}</td>
+                <td style="font-size: 14px;">{{cn.descripcion}}</td>
+                <td>{{cn.saldo}}</td>
+                <td class="text-center">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btn-xs" type="button"><span ><i class="fas fa-check-square"></i></span></button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            </div>
+            </div>
+          <div class="col-md-12 text-right mt-2">
+            <pagination-controls id="cn" class="page-item" (pageChange)="c = $event"></pagination-controls>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
