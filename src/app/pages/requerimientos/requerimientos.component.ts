@@ -97,15 +97,21 @@ export class RequerimientosComponent implements OnInit {
       );
   }
 
-  editDetalleReq(data) {
-    console.log(data);
+  accionItemReq(data) {
     $('#uno').hide( 500);
     $('#dos').show( 500);
     $('#umovil').prop('checked', false);
     $('#upersonal').prop('checked', false);
     this.unidadPersonal = false;
     this.unidadMovil = false;
+    if (data === 'nuevo') {
+      console.log('Estamos en un nuevo Item de Requerimiento');
+    }else {
+      console.log(data);
+    }
+
   }
+
 
   accion(dato:any) {
     if (dato === 'vacio') {
