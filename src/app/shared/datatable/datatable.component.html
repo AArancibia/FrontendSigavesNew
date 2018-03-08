@@ -1,5 +1,5 @@
 
-<table id="example23" class="display nowrap table table-hover  table-bordered"
+<table id="example23" class="display table table-hover  table-bordered"
        cellspacing="0" width="100%"
        datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
   <thead class="bg-info text-white">
@@ -8,23 +8,23 @@
     <th>Descripcion</th>
     <th>Fecha</th>
     <th>C.Costo</th>
-    <th>Acciones</th>
+    <th></th><!-- Acciones -->
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let data of data"
       style="font-size: 12px;">
-    <td>{{data.idcabeSac.toString() | slice:6:9}}
+    <td>{{data.idcabeSac}}<!--.toString() | slice:7:10-->
     </td>
-    <td class="text-dark">{{data.descripcion | slice:0:69}}
-      <br> {{data.descripcion | slice:69:data.descripcion.length}}
+    <td class="text-dark">{{data.descripcion }}<!--  | slice:0:69}}
+      <br> {{data.descripcion | slice:69:data.descripcion.length}}-->
     </td>
     <td>{{data.fechaSac}}</td>
     <td>{{data.codCcosto}}</td>
-    <!--<td></td>-->
-    <td class="text-nowrap">
+    <td class="text-nowrap"></td>
+    <!--<td class="text-nowrap">
       <div class="btn-group dropright ">
-        <button type="button"  class="btn btn-secondary btn-xs" (click)="accion(data)"><!---data-toggle="modal" data-target="#exampleModal"-->
+        <button type="button" id="edit"  class="btn btn-secondary btn-xs" (click)="accion(data)">&lt;!&ndash;-data-toggle="modal" data-target="#exampleModal"&ndash;&gt;
           <span><i class="fas fa-edit"></i> <strong>Editar</strong></span>
         </button>
         <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,7 +34,7 @@
           <button type="button" class="dropdown-item" data-toggle="modal" data-target="#exampleModal" (click)="eliminar(data.idcabeSac)"> <span><i class="fa fa-times"></i> Eliminar</span></button>
         </div>
       </div>
-    </td>
+    </td>-->
   </tr>
   </tbody>
 </table>

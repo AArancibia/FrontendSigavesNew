@@ -114,6 +114,7 @@ export class RequerimientosComponent implements OnInit {
 
 
   accion(dato:any) {
+    console.log(dato);
     if (dato === 'vacio') {
       let anio = moment().year().toString();
       let ccosto = this.codCcosto;
@@ -134,17 +135,26 @@ export class RequerimientosComponent implements OnInit {
         let ultimo = this.data.length - 1;
         this.CabeceraSac.idcabeSac = this.data[ultimo].idcabeSac;
         this.CabeceraSac.idcabeSac++;
+        console.log(this.CabeceraSac.idcabeSac);
       }
       let myNumber = this.CabeceraSac.idcabeSac;
       console.log(myNumber);
       var formattedNumber = ("00" + myNumber).slice(-3);
-      let id = anio + ccosto + formattedNumber;
+      var ccostoformat = ('00' + ccosto).slice(-3);
+      let id = anio + ccostoformat + formattedNumber;
       this.CabeceraSac.idcabeSac = Number(id);
 
     }else {
-      this.CabeceraSac = dato;
+      this.reqService.getDataCabeceraSACById(dato)
+        .subscribe(
+        (res:any) => {
+          this.CabeceraSac = res;
+          console.log(this.CabeceraSac);
+        }
+      )
+
       this.itemNuevoReq = false;
-      this.getCabecerDetSac(dato.idcabeSac);
+      this.getCabecerDetSac(dato);
     }
     $('#profile2').toggleClass('active');
     $('#home2').toggleClass('active');

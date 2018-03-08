@@ -56,18 +56,34 @@ export class DatatableComponent implements OnInit, AfterViewInit {
       pagingType: 'full_numbers',
       pageLength: 5,
       // Declare the use of the extension in the dom parameter
-      dom: 'Bfrtip',/*
+      dom: 'Bfrtip',
       "columnDefs": [ {
         "targets": -1,
         "data": null,
-        "defaultContent": "<button class='image-admin'><i class='fas fa-edit fa-2x '></i></button><button data-toggle=\"modal\" data-target=\"#exampleModal\" class='image-admin'><i class='fa fa-times fa-2x '></i></button>"
-      } ],*/
+        "defaultContent": "<span><a id=\"edit\"> <i class=\"fas fa-edit text-inverse m-r-10\"></i> </a>\n" +
+        "<a id=\"delete\" data-toggle=\"modal\" data-target=\"#exampleModal\" > <i class=\"fa fa-times text-danger\"></i> </a></span>"
+      } ],
       buttons: [
         'pdf',
-        'excel',
-        'print'
+        'excel'
       ],
-      language: this.idioma_español
+      language: this.idioma_español,
+      rowCallback: (row: Node, data: any[] | Object, index: number) => {
+
+        $(row).find("a#edit").unbind("click");
+        $(row).find("a#edit").click(() =>
+          this.zone.run(() => {
+            this.seleccion.emit($(row).find("td").eq(0).text()) ;
+          })
+        );
+        $(row).find("a#delete").click(() =>
+          this.zone.run(() => {
+            this.elimina = $(row).find("td").eq(0).text();
+          })
+        );
+
+        return row;
+      }
     };
   }
 
