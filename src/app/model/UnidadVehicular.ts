@@ -1,5 +1,5 @@
 export class UnidadVehicular {
-  codigo: number;
+  idCodvehicular: number;
   placa: string;
-  descripcion: string;
+  unidmovil: string;
 }

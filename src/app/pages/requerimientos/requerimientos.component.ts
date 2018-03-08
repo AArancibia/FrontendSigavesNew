@@ -216,6 +216,21 @@ export class RequerimientosComponent implements OnInit {
     $('#exampleModal2').modal('hide');
   }
 
+  getUnidadMovil() {
+    this.reqService.getUnidadesVehiculares().
+      subscribe(
+      (res) => {
+       this.dataUVehicular = res;
+      },
+      (error) => {
+        console.log('Error Compare');
+      },
+      () => {
+        console.log('Completoo');
+      }
+    );
+  }
+
   getCabeceraSAC() {
     this.loading = true;
     this.reqService.getDataCabeceraSAC()

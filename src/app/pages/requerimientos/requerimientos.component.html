@@ -321,7 +321,7 @@
                                        placeholder="Asignar Unidad Móvil">
                                 <span class="input-group-btn">
             <button class="btn btn-outline-info"
-                    data-toggle="modal" data-target="#ModalUnidadMovil"
+                    data-toggle="modal" (click)="getUnidadMovil()"  data-target="#ModalUnidadMovil"
                     type="button" [disabled]="!unidadMovil" >Buscar!</button>
                         </span>
                               </div>
@@ -463,25 +463,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!--<tr *ngFor="let cn of cuadroNecesidades | paginate: { itemsPerPage: 6, currentPage: c,  id: 'um' } | filter: um " >
-                  <th scope="row" class="text-center"></th>
-                  <td></td>
-                  <td style="font-size: 14px;"></td>
-                  <td></td>
+                <tr *ngFor="let uv of dataUVehicular | paginate: { itemsPerPage: 6, currentPage: ump,  id: 'um' } " ><!--| filter: um -->
+                  <th scope="row" class="text-center">{{uv.idCodvehicular}}</th>
+                  <td>{{uv.placa}}</td>
+                  <td style="font-size: 14px;">{{uv.unidmovil}}</td>
                   <td class="text-center">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary btn-xs" type="button" (click)="seleccionArticulo(cn)">
+                      <button class="btn btn-outline-secondary btn-xs" type="button" (click)="seleccionUM(um)">
                         <span ><i class="fas fa-check-square"></i></span></button>
                     </div>
                   </td>
-                </tr>-->
+                </tr>
                 </tbody>
               </table>
             </div>
           </div>
-         <!-- <div class="col-md-12 text-right mt-2">
-            <pagination-controls id="um" class="page-item" (pageChange)="um = $event"></pagination-controls>
-          </div>-->
+         <div class="col-md-12 text-right mt-2">
+            <pagination-controls id="um" class="page-item" (pageChange)="ump = $event"></pagination-controls>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
