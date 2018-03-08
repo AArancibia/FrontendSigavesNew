@@ -145,7 +145,8 @@ export class RequerimientosComponent implements OnInit {
       this.CabeceraSac.idcabeSac = Number(id);
 
     }else {
-      this.reqService.getDataCabeceraSACById(dato)
+      console.log(dato);
+      this.reqService.getDataCabeceraSACById(dato.trim())
         .subscribe(
         (res:any) => {
           this.CabeceraSac = res;
