@@ -9,6 +9,8 @@ import * as moment from 'moment';
 import SweetScroll from 'sweet-scroll';
 import {CabDetalleSac} from "../../model/CabDetalleSac";
 import {PipeCuadroNecesidadesPipe} from "../../pipes/pipe-cuadro-necesidades.pipe";
+import {CNecesidadesxCCosto} from "../../model/CNecesidadesxCCosto";
+import {UnidadVehicular} from "../../model/UnidadVehicular";
 
 @Component({
   selector: 'app-requerimientos',
@@ -19,9 +21,11 @@ export class RequerimientosComponent implements OnInit {
 
   @ViewChild(DatatableComponent)
   private dataTableComponent: DatatableComponent;
-  data: any = [];
-  cuadroNecesidades:any = [];
+  data: any = []; // Para datos de Cabecera de Requerimientos (DataTable)
+  cuadroNecesidades: CNecesidadesxCCosto[];
+  cuadroNecesSel: CNecesidadesxCCosto ;
   dataCabDet: CabDetalleSac[];
+  dataUVehicular: UnidadVehicular[];
   loading: boolean = true;
   termino: string = '';
   centroCostoh3: string;
@@ -31,10 +35,13 @@ export class RequerimientosComponent implements OnInit {
   scroller = new SweetScroll();
   today: any = moment().format('DD/MM/YYYY');
   itemNuevoReq: boolean = true;
+  unidadMovil: boolean = false;
+  unidadPersonal: boolean = false;
 
   constructor(public reqService: RequerimientoService,
               private route: ActivatedRoute) {
     this.CabeceraSac = new CabeceraSac;
+    this.cuadroNecesSel = new CNecesidadesxCCosto;
   }
 
   ngOnInit() {
@@ -45,7 +52,16 @@ export class RequerimientosComponent implements OnInit {
       weekStart: 0, time: false,
       format : 'DD/MM/YYYY'
     });
+    this.codCcosto = 14;
+  }
 
+
+  unidadM() {
+    this.unidadMovil = !this.unidadMovil;
+  }
+
+  unidadP() {
+    this.unidadPersonal = !this.unidadPersonal;
   }
 
   buscarCentroCosto() {
@@ -76,18 +92,32 @@ export class RequerimientosComponent implements OnInit {
           this.termino = '';
           this.loading = false;
           this.centroCostoh3 = des;
+          this.codCcosto = codcentroCosto;
         }
       );
   }
 
-  editDetalleReq(data) {
-    console.log(data);
+  accionItemReq(data) {
     $('#uno').hide( 500);
     $('#dos').show( 500);
+    $('#umovil').prop('checked', false);
+    $('#upersonal').prop('checked', false);
+    this.unidadPersonal = false;
+    this.unidadMovil = false;
+    if (data === 'nuevo') {
+      console.log('Estamos en un nuevo Item de Requerimiento');
+    }else {
+      console.log(data);
+    }
+
   }
 
+
   accion(dato:any) {
+    console.log(dato);
     if (dato === 'vacio') {
+      let anio = moment().year().toString();
+      let ccosto = this.codCcosto;
       this.itemNuevoReq = false;
       dato = {};
       let h = this.today;
@@ -95,13 +125,36 @@ export class RequerimientosComponent implements OnInit {
       let hoy = $('#mdate').bootstrapMaterialDatePicker({
         setDate: h
       });
+
       this.cuadroNecesidades = [];
       this.CabeceraSac = dato;
       this.CabeceraSac.fechaSac = h;
+      if (this.data.length <= 0 ) {
+        this.CabeceraSac.idcabeSac = 1;
+      }else {
+        let ultimo = this.data.length - 1;
+        this.CabeceraSac.idcabeSac = this.data[ultimo].idcabeSac;
+        this.CabeceraSac.idcabeSac++;
+        console.log(this.CabeceraSac.idcabeSac);
+      }
+      let myNumber = this.CabeceraSac.idcabeSac;
+      console.log(myNumber);
+      var formattedNumber = ("00" + myNumber).slice(-3);
+      var ccostoformat = ('00' + ccosto).slice(-3);
+      let id = anio + ccostoformat + formattedNumber;
+      this.CabeceraSac.idcabeSac = Number(id);
+
     }else {
-      this.CabeceraSac = dato;
+      this.reqService.getDataCabeceraSACById(dato)
+        .subscribe(
+        (res:any) => {
+          this.CabeceraSac = res;
+          console.log(this.CabeceraSac);
+        }
+      )
+
       this.itemNuevoReq = false;
-      this.getCabecerDetSac(dato.idcabeSac);
+      this.getCabecerDetSac(dato);
     }
     $('#profile2').toggleClass('active');
     $('#home2').toggleClass('active');
@@ -118,6 +171,12 @@ export class RequerimientosComponent implements OnInit {
     $('a#profile22.nav-link.active')
       .removeClass('active');
     $('a#home22.nav-link').addClass('active');
+    this.dataCabDet = [];
+  }
+
+  tabListado() {
+    this.itemNuevoReq = true;
+    this.dataCabDet = [];
   }
 
   getCuadroNecesidades() {
@@ -133,6 +192,7 @@ export class RequerimientosComponent implements OnInit {
   togglecierra() {
     $('#uno').show(500);
     $('#dos').hide(500);
+    this.cuadroNecesSel = new CNecesidadesxCCosto;
   }
 
   deleteDetalleReq(data) {
@@ -148,6 +208,11 @@ export class RequerimientosComponent implements OnInit {
         },
         (err) => console.log(err)
       );
+  }
+
+  seleccionArticulo(cn) {
+    this.cuadroNecesSel = cn;
+    $('#exampleModal2').modal('hide');
   }
 
   getCabeceraSAC() {
