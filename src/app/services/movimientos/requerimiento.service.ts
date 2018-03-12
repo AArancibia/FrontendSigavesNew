@@ -64,8 +64,6 @@ export class RequerimientoService {
 
   getUnidadesVehiculares(): Observable<UnidadVehicular[]> {
     const url = `${this.UnidadVehicularUrl}`;
-    console.log(url);
-    debugger;
     return this.http.get(url)
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));

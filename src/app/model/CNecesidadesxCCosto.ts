@@ -2,7 +2,7 @@ export class CNecesidadesxCCosto {
   actividadOperativaId: number;
   cantAut: number;
   cantEjec: number;
-  denominacion: string;
+  descripcion: string;
   idCnecesidad: number;
   idactOpe: number;
   logCitem: number;

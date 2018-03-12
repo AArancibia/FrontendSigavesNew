@@ -31,7 +31,7 @@ export class DatatableComponent implements OnInit, AfterViewInit {
     "sEmptyTable": "Ningún dato disponible en esta tabla",
     "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
     "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "sInfoFiltered": "(filtrado de un total de MAX registros)",
+    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
     "sInfoPostFix": '',
     "sSearch": "Buscar:",
     "sUrl": '',
