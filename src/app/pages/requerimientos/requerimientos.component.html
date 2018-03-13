@@ -131,7 +131,9 @@
                   <div class="col-md-6">
                     <div class="form-group mt-2">
                       <div class="input-group" style="width:105%;">
-                        <textarea type="text" rows="4"  class="form-control form-control-sm" [(ngModel)]="CabeceraSac.descripcion" name="descripcion" placeholder="Motivo del Requerimiento"></textarea>
+                        <textarea type="text" rows="4"  class="form-control form-control-sm"
+                                  [(ngModel)]="CabeceraSac.descripcion"
+                                  name="descripcion" placeholder="Motivo del Requerimiento"></textarea>
                         <div class="input-group-addon"><i style="font-size:30px;" class="ti-pencil-alt2"></i></div>
                       </div>
                     </div>
@@ -253,14 +255,16 @@
           <span class="input-group-btn">
             <button class="btn btn-outline-info" type="button" (click)="getCuadroNecesidades()" data-toggle="modal" data-target="#exampleModal2">Buscar!</button>
                         </span>
-                      <input type="text" class="form-control text-right" [(ngModel)]="cuadroNecesSel.actividadOperativaId" name="actividadOp"  placeholder="Busca el articulo...">
+                      <input type="text" class="form-control text-right"
+                             [(ngModel)]="cuadroNecesSel.actividadOperativaId" name="actividadOp"  placeholder="Busca el articulo...">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="input-group">
                       <div class="input-group-addon " style="background-color: #2185D0;">
                         <i class="ti-user text-white"></i></div>
-                      <input type="text" class="form-control " placeholder="Partida..." name="partida" [(ngModel)]="cuadroNecesSel.partidaPre">
+                      <input type="text" class="form-control " placeholder="Partida..."
+                             name="partida" [(ngModel)]="cuadroNecesSel.partidaPre">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -281,7 +285,8 @@
                     <br>
                     <div class="input-group-addon  text-white" style="background-color: #2185D0">
                       <i class=""></i>Detalle</div>
-                    <textarea type="text" class="form-control form-control-sm" placeholder="Partida..." name="DetalleCN" [(ngModel)]="cuadroNecesSel.descripcion" rows="2"></textarea>
+                    <textarea type="text" class="form-control form-control-sm" placeholder="..."
+                              name="DetalleCN" [(ngModel)]="cuadroNecesSel.descripcion" rows="2"></textarea>
                   </div>
                   <div class="col-md-6">
                     <br>
@@ -289,7 +294,7 @@
                     <div class="input-group">
                       <span class="input-group-addon">Cantidad</span>
                       <input type="number" class="form-control form-control-sm text-right"
-                             [(ngModel)]="cuadroNecesSel.cantAut"
+                             [(ngModel)]="DetalleCabSac.cantidad"
                              name="cantAut"
                              aria-label="Amount (to the nearest dollar)">
                       <span class="input-group-addon">.00</span>
@@ -298,7 +303,7 @@
                     <div class="input-group mt-3">
                       <span class="input-group-addon">Valor Unit. Estimado</span>
                       <input type="number" class="form-control form-control-sm text-right"
-                             [(ngModel)]="cuadroNecesSel.vestimado"
+
                              name="vestimado"
                              aria-label="Amount (to the nearest dollar)">
                       <span class="input-group-addon">.00</span>
@@ -322,8 +327,11 @@
   <span class="input-group-addon" >
   <input type="checkbox" aria-label="Checkbox for following text input" id="umovil" (click)="unidadM()" >
    </span>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control font-weight-bold"
+                                       style="font-size: 13px"
                                        disabled aria-label="Text input with checkbox"
+                                       [value]="infoDataVehiculo"
+                                       name="id_codvehicular"
                                        placeholder="Asignar Unidad Móvil">
                                 <span class="input-group-btn">
             <button class="btn btn-outline-info"
@@ -337,9 +345,15 @@
   <span class="input-group-addon">
   <input type="checkbox" aria-label="Checkbox for following text input" id="upersonal" (click)="unidadP()" >
    </span>
-                                <input type="text" class="form-control" disabled aria-label="Text input with checkbox"  placeholder="Asignar Personal">
+                                <input type="text" class="form-control" disabled
+                                       [(ngModel)]="DetalleCabSac.idCodpersonalmuni"
+                                       name="id_codpersonalmuni"
+                                       aria-label="Text input with checkbox"  placeholder="Asignar Personal">
                                 <span class="input-group-btn">
-            <button class="btn btn-outline-info" type="button" [disabled]="!unidadPersonal">Buscar!</button>
+            <button class="btn btn-outline-info"
+
+                    data-toggle="modal" data-target="#ModalUnidadPersonal"
+                    type="button" [disabled]="!unidadPersonal">Buscar!</button>
                         </span>
                               </div>
                             </div>
@@ -475,7 +489,7 @@
                   <td style="font-size: 14px;">{{uv.descripcion}}</td>
                   <td class="text-center">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary btn-xs" type="button" (click)="seleccionUM(um)">
+                      <button class="btn btn-outline-secondary btn-xs" type="button" (click)="seleccionUM(uv)">
                         <span ><i class="fas fa-check-square"></i></span></button>
                     </div>
                   </td>
@@ -500,14 +514,14 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title " id="exampleModalLabel3">Unidades Vehiculares</h4>
+        <h4 class="modal-title " id="exampleModalLabe">Unidades Personal</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <form class="">
           <div class="form-group">
             <div class="input-group mb-3 col-sm-6">
-              <input type="text" class="form-control form-control-sm" name="um" [(ngModel)]="um">
+              <input type="text" class="form-control form-control-sm" name="um" [(ngModel)]="up">
               <!--<div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" >Buscar</button>
               </div>-->
@@ -525,17 +539,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let uv of dataUVehicular | paginate: { itemsPerPage: 6, currentPage: ump,  id: 'um'  } | filter: um" ><!--| filter: um -->
+                <!--<tr *ngFor="let uv of dataUVehicular | paginate: { itemsPerPage: 6, currentPage: ump,  id: 'up'  } | filter: up" >&lt;!&ndash;| filter: um &ndash;&gt;
                   <th scope="row" class="text-center">{{uv.idCodvehicular}}</th>
                   <td>{{uv.placa}}</td>
                   <td style="font-size: 14px;">{{uv.descripcion}}</td>
                   <td class="text-center">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary btn-xs" type="button" (click)="seleccionUM(um)">
+                      <button class="btn btn-outline-secondary btn-xs" type="button" (click)="seleccionUM(uv)">
                         <span ><i class="fas fa-check-square"></i></span></button>
                     </div>
                   </td>
-                </tr>
+                </tr>-->
                 </tbody>
               </table>
             </div>

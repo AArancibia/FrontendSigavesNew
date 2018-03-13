@@ -25,6 +25,7 @@ export class RequerimientosComponent implements OnInit {
   cuadroNecesidades: CNecesidadesxCCosto[];
   cuadroNecesSel: CNecesidadesxCCosto ;
   dataCabDet: CabDetalleSac[];
+  DetalleCabSac: CabDetalleSac;
   dataUVehicular: UnidadVehicular[];
   loading: boolean = true;
   termino: string = '';
@@ -37,11 +38,13 @@ export class RequerimientosComponent implements OnInit {
   itemNuevoReq: boolean = true;
   unidadMovil: boolean = false;
   unidadPersonal: boolean = false;
+  infoDataVehiculo: string;
 
   constructor(public reqService: RequerimientoService,
               private route: ActivatedRoute) {
     this.CabeceraSac = new CabeceraSac;
     this.cuadroNecesSel = new CNecesidadesxCCosto;
+    this.DetalleCabSac = new CabDetalleSac;
   }
 
   ngOnInit() {
@@ -55,31 +58,11 @@ export class RequerimientosComponent implements OnInit {
     this.codCcosto = 14;
   }
 
-
-  unidadM() {
-    this.unidadMovil = !this.unidadMovil;
-  }
-
-  unidadP() {
-    this.unidadPersonal = !this.unidadPersonal;
-  }
-
-  buscarCentroCosto() {
-    if (this.termino.length == 0) {
-      return;
-    }
-    this.reqService.getCentroCosto(this.termino)
-      .subscribe(
-        (result) => this.CentroCosto = result
-      );
-  }
-
   getCabeceraFromCentro(codcentroCosto, des) {
     this.reqService.getCabeceraCentroCosto(codcentroCosto)
       .subscribe(
         (result) => {
           this.data = result;
-          console.log(this.data);
           if(this.dataTableComponent) {
             this.dataTableComponent.rerender();
           }
@@ -106,15 +89,33 @@ export class RequerimientosComponent implements OnInit {
     this.unidadMovil = false;
     if (data === 'nuevo') {
       console.log('Estamos en un nuevo Item de Requerimiento');
+      this.DetalleCabSac = new CabDetalleSac;
+      this.cuadroNecesSel = new CNecesidadesxCCosto;
     }else {
-      console.log(data);
+      this.DetalleCabSac = data;
+      console.log(this.DetalleCabSac);
+      this.cuadroNecesSel.descripcion = this.DetalleCabSac.descripcion;
+      this.cuadroNecesSel.partidaPre = this.DetalleCabSac.partida;
+      //servicio para llamar ala uni vehicular por codigo
     }
 
   }
 
+  seleccionArticulo(cn) {
+    console.log(cn);
+    this.cuadroNecesSel = cn;
+    //this.DetalleCabSac.codArticulo(actividadOperativa) = cn.actividadOperativaId;
+    $('#exampleModal2').modal('hide');
+  }
+
+  seleccionUM(uv) {
+    console.log(uv);
+    this.infoDataVehiculo = 'Placa: ' + uv.placa + ' |  ' + uv.descripcion;
+    this.DetalleCabSac.idCodvehicular = uv.idCodvehicular;
+    console.log(this.DetalleCabSac.idCodvehicular);
+  }
 
   accion(dato:any) {
-    console.log(dato);
     if (dato === 'vacio') {
       let anio = moment().year().toString();
       let ccosto = this.codCcosto;
@@ -138,19 +139,16 @@ export class RequerimientosComponent implements OnInit {
         console.log(this.CabeceraSac.idcabeSac);
       }
       let myNumber = this.CabeceraSac.idcabeSac;
-      console.log(myNumber);
       var formattedNumber = ("00" + myNumber).slice(-3);
       var ccostoformat = ('00' + ccosto).slice(-3);
       let id = anio + ccostoformat + formattedNumber;
       this.CabeceraSac.idcabeSac = Number(id);
 
     }else {
-      console.log(dato);
       this.reqService.getDataCabeceraSACById(dato.trim())
         .subscribe(
         (res:any) => {
           this.CabeceraSac = res;
-          console.log(this.CabeceraSac);
         }
       )
 
@@ -184,7 +182,6 @@ export class RequerimientosComponent implements OnInit {
     this.reqService.getCuadroNecedidades()
       .subscribe(
         (result) => {
-          console.log(result);
           this.cuadroNecesidades = result;
         }
       );
@@ -193,7 +190,7 @@ export class RequerimientosComponent implements OnInit {
   togglecierra() {
     $('#uno').show(500);
     $('#dos').hide(500);
-    this.cuadroNecesSel = new CNecesidadesxCCosto;
+    this.DetalleCabSac = new CabDetalleSac;//sacar por DetCabecera
   }
 
   deleteDetalleReq(data) {
@@ -209,11 +206,6 @@ export class RequerimientosComponent implements OnInit {
         },
         (err) => console.log(err)
       );
-  }
-
-  seleccionArticulo(cn) {
-    this.cuadroNecesSel = cn;
-    $('#exampleModal2').modal('hide');
   }
 
   getUnidadMovil() {
@@ -244,5 +236,24 @@ export class RequerimientosComponent implements OnInit {
         () => this.loading = false
       );
   }
+
+  unidadM() {
+    this.unidadMovil = !this.unidadMovil;
+  }
+
+  unidadP() {
+    this.unidadPersonal = !this.unidadPersonal;
+  }
+
+  buscarCentroCosto() {
+    if (this.termino.length == 0) {
+      return;
+    }
+    this.reqService.getCentroCosto(this.termino)
+      .subscribe(
+        (result) => this.CentroCosto = result
+      );
+  }
+
 
 }

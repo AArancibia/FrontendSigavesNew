@@ -6,7 +6,7 @@ export class CNecesidadesxCCosto {
   idCnecesidad: number;
   idactOpe: number;
   logCitem: number;
-  partidaPre: number;
+  partidaPre: string;
   saldo: number;
   tipo: number;
   vestimado: number;

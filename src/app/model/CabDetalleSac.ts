@@ -7,4 +7,6 @@ export class CabDetalleSac {
   unidad: string;
   cantidad: number;
   partida: string;
+  idCodvehicular: number;
+  idCodpersonalmuni: number;
 }
